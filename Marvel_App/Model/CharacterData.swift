@@ -17,6 +17,7 @@ struct DataStruct: Decodable {
 
 struct Results: Decodable {
     let name: String
+    let description: String
     let thumbnail: Thumbnail
 }
 

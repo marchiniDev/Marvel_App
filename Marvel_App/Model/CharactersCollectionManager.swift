@@ -10,13 +10,14 @@ import UIKit
 
 protocol CharactersCollectionManagerDelegate {
     func didUploadData(_ characterCollectionManager: CharactersCollectionManager, charactersData: [Results])
-    func didFailWithError(error: Error)
+    func didCreatArray(with charactersArray: [CharacterInfo])
     func didDownloadImage (_ characterImage: UIImage, _ row: Int)
+    func didFailWithError(error: Error)
 }
 
 struct CharactersCollectionManager {
     
-    var delegate:CharactersCollectionManagerDelegate?
+    var delegate: CharactersCollectionManagerDelegate?
     
     func getData() {
         let ts = "15091989"
@@ -56,6 +57,19 @@ struct CharactersCollectionManager {
             self.delegate?.didFailWithError(error: error)
             return nil
         }
+    }
+    
+    
+    func creatCharactersArray(with charactersData: [Results]) {
+        
+        let character = CharacterInfo(characterImage: UIImage(systemName: K.sfName), characterName: "name", characterDescription: "description")
+        var charactersArray: [CharacterInfo] = Array(repeating: character, count: charactersData.count)
+        for row in 0..<charactersData.count {
+            charactersArray[row].characterName = charactersData[row].name
+            charactersArray[row].characterDescription = charactersData[row].description
+        }
+        
+        self.delegate?.didCreatArray(with: charactersArray)
     }
     
     func getImage(with character: Results, _ row: Int) {

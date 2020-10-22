@@ -96,7 +96,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Character Detail" id="7J1-xH-cgP"/>
                     <connections>
-                        <outlet property="button" destination="wbO-FL-f31" id="6zI-MZ-LE9"/>
+                        <outlet property="button" destination="H7D-3g-cLw" id="e3y-0v-y4m"/>
                         <outlet property="characterImageView" destination="Eyb-pH-NSZ" id="GoE-sa-q7r"/>
                         <outlet property="characterNameLabel" destination="vmR-y5-GDn" id="QOE-fM-enL"/>
                         <outlet property="chatacterDescriptionLabel" destination="hjV-xg-6Z2" id="yJJ-RJ-bip"/>

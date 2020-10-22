@@ -13,7 +13,7 @@ class CharactersCollectionVC: UICollectionViewController {
     
     var charactersCollectionManager = CharactersCollectionManager()
     var charactersData: [Results] = []
-    var characterImage: [UIImage] = []
+    var characters: [CharacterInfo] = []
     var i: Int = 0
     
     
@@ -33,7 +33,7 @@ class CharactersCollectionVC: UICollectionViewController {
     // MARK: UICollectionViewDataSource
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return charactersData.count/20
+        return characters.count/20
     }
     
     
@@ -45,20 +45,19 @@ class CharactersCollectionVC: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.cellIdentifier, for: indexPath) as! CharacterCell
         
         // Configure the cell
-        cell.nameLabel.text = charactersData[indexPath.row].name
-        charactersCollectionManager.getImage(with: charactersData[indexPath.row], indexPath.row)
+        cell.nameLabel.text = characters[indexPath.row].characterName
         cell.characterImageView.contentMode = .scaleAspectFit
-        if characterImage.count != 0 {
-            cell.characterImageView.image = characterImage[indexPath.row]
-        }
+        cell.characterImageView.image = characters[indexPath.row].characterImage
+        
         return cell
     }
     
     // MARK: - UICollectionViewDelegate
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let character = CharactersCollectionView.cellForItem(at: indexPath)
-        performSegue(withIdentifier: K.segueToDetail, sender: character)
+        let character = characters[indexPath.row]
+        self.performSegue(withIdentifier: K.segueToDetail, sender: character)
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -67,7 +66,6 @@ class CharactersCollectionVC: UICollectionViewController {
             destinationVC.character = sender as? CharacterInfo
         }
     }
-    
     
 }
 
@@ -78,22 +76,28 @@ extension CharactersCollectionVC: CharactersCollectionManagerDelegate {
     func didUploadData(_ characterCollectionManager: CharactersCollectionManager, charactersData: [Results]) {
         DispatchQueue.main.async {
             self.charactersData = charactersData.self
-            self.characterImage = Array(repeating: UIImage(systemName: K.sfName)!, count: charactersData.count)
-            self.CharactersCollectionView.reloadData()
+            self.charactersCollectionManager.creatCharactersArray(with: charactersData)
         }
     }
     
-    func didDownloadImage (_ characterImage: UIImage, _ row: Int) {
+    func didCreatArray(with charactersArray: [CharacterInfo]) {
+        DispatchQueue.main.async {
+            self.characters = charactersArray.self
+            self.CharactersCollectionView.reloadData()
+            for row in 0..<charactersArray.count {
+                self.charactersCollectionManager.getImage(with: self.charactersData[row], row)
+            }
+        }
+    }
+    
+    func didDownloadImage(_ characterImage: UIImage, _ row: Int) {
         DispatchQueue.main.async {
             let image = characterImage.self
             let row = row.self
             
-            self.characterImage[row] = image
-            self.i += 1
-
-            if self.i == self.charactersData.count {
-                self.CharactersCollectionView.reloadData()
-            }
+            self.characters[row].characterImage = image
+            self.CharactersCollectionView.reloadData()
+            
         }
     }
     

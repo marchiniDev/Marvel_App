@@ -8,14 +8,10 @@
 import Foundation
 import UIKit
 
-class CharacterInfo {
-    var characterImage: UIImage
-    var characterName: String
-    var characterDescription: String
+struct CharacterInfo {
     
-    init(image: UIImage, name: String, description: String) {
-        self.characterImage = image
-        self.characterName = name
-        self.characterDescription = description
-    }
+    var characterImage: UIImage?
+    var characterName: String?
+    var characterDescription: String?
+    
 }
