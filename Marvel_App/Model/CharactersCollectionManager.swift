@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CryptoKit
 
 protocol CharactersCollectionManagerDelegate {
     func didUploadData(_ characterCollectionManager: CharactersCollectionManager, charactersData: [Results])
@@ -20,13 +21,24 @@ struct CharactersCollectionManager {
     var delegate: CharactersCollectionManagerDelegate?
     
     func getData() {
-        let ts = "15091989"
-        let myHash = "69186c6c94afa20163bfad892c45faf6"
         
-        let urlString = "\(K.marvelLink)ts=\(ts)&apikey=\(K.myPublicKey)&hash=\(myHash)"
+        let ts = String(format: "%.0f", NSDate().timeIntervalSince1970.binade)
+        let myString = "\(ts+K.myPrivateKey+K.myPublicKey)"
+        let myHash = md5Encrypt(string: myString)
+        
+        let urlString = "\(K.marvelLink)?ts=\(ts)&apikey=\(K.myPublicKey)&hash=\(myHash)"
         performRequest(with: urlString)
         
     }
+    
+    func md5Encrypt(string: String) -> String {
+        let hash = Insecure.MD5.hash(data: string.data(using: .utf8) ?? Data())
+        let myHash = hash.map {
+            String(format: "%02hhx", $0)
+        }.joined()
+        return myHash
+    }
+    
     func performRequest (with urlString: String){
         
         if let url = URL(string: urlString) {
@@ -62,19 +74,28 @@ struct CharactersCollectionManager {
     
     func creatCharactersArray(with charactersData: [Results]) {
         
-        let character = CharacterInfo(characterImage: UIImage(systemName: K.sfName), characterName: "name", characterDescription: "description")
+        let character = CharacterInfo(characterImage: UIImage(systemName: K.sfName), characterName: "name", characterDescription: "description", characterId: 0)
         var charactersArray: [CharacterInfo] = Array(repeating: character, count: charactersData.count)
         for row in 0..<charactersData.count {
-            charactersArray[row].characterName = charactersData[row].name
-            charactersArray[row].characterDescription = charactersData[row].description
+            if let name = charactersData[row].name {
+                charactersArray[row].characterName = name
+            }
+            if let description = charactersData[row].description {
+                charactersArray[row].characterDescription = description
+            }
+            if let id = charactersData[row].id {
+                charactersArray[row].characterId = id
+            }
         }
         
         self.delegate?.didCreatArray(with: charactersArray)
     }
     
     func getImage(with character: Results, _ row: Int) {
-        let urlString = "\(character.thumbnail.path)/\(K.imageVariant).\(character.thumbnail.extension)"
-        performImageRequest(with: urlString, row)
+        if let path = character.thumbnail.path, let `extension` = character.thumbnail.extension {
+            let urlString = "\(path)/\(K.imageVariant).\(`extension`)"
+            performImageRequest(with: urlString, row)
+        }
     }
     
     func performImageRequest (with urlString: String, _ row: Int){

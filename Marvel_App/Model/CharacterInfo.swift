@@ -13,5 +13,6 @@ struct CharacterInfo {
     var characterImage: UIImage?
     var characterName: String?
     var characterDescription: String?
+    var characterId: Int?
     
 }

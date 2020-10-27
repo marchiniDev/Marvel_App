@@ -72,7 +72,7 @@
                                 <state key="normal" title="HQ de &lt;Personagem&gt;"/>
                                 <connections>
                                     <action selector="hqButtonTapped:" destination="jD9-oc-nmO" eventType="touchUpInside" id="4F8-xh-gQT"/>
-                                    <segue destination="sdZ-AD-XOO" kind="show" id="UC1-1k-JgP"/>
+                                    <segue destination="sdZ-AD-XOO" kind="show" identifier="DetailToComic" id="UC1-1k-JgP"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -109,33 +109,36 @@
         <!--Character's HQ-->
         <scene sceneID="owd-ES-1hI">
             <objects>
-                <viewController id="sdZ-AD-XOO" sceneMemberID="viewController">
+                <viewController id="sdZ-AD-XOO" customClass="ComicsViewController" customModule="Marvel_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aEp-SH-EPS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="PEI-wk-07m">
-                                <rect key="frame" x="5" y="645" width="404" height="204"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="PEI-wk-07m">
+                                <rect key="frame" x="5" y="586" width="404" height="263"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="&lt;Character's Most Expensive HQ&gt;" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qXi-HF-FBt">
-                                <rect key="frame" x="13" y="549" width="388" height="34"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Character's Most Expensive HQ&gt;" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qXi-HF-FBt">
+                                <rect key="frame" x="13" y="509" width="388" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="Yrs-vd-yW7"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="&lt;R$ Money&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xlv-Nh-ybq">
-                                <rect key="frame" x="21" y="610" width="372" height="27"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;R$ Money&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xlv-Nh-ybq">
+                                <rect key="frame" x="21" y="551" width="372" height="27"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hEz-0Y-dxH">
-                                <rect key="frame" x="57" y="112" width="300" height="400"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hEz-0Y-dxH">
+                                <rect key="frame" x="57" y="101" width="300" height="400"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="hEz-0Y-dxH" secondAttribute="height" multiplier="3:4" id="gh4-1V-OvI"/>
                                 </constraints>
@@ -150,6 +153,7 @@
                             <constraint firstItem="Xlv-Nh-ybq" firstAttribute="leading" secondItem="FjN-I6-cuw" secondAttribute="leading" constant="21" id="Amf-Ud-5VJ"/>
                             <constraint firstItem="PEI-wk-07m" firstAttribute="leading" secondItem="FjN-I6-cuw" secondAttribute="leading" constant="5" id="Fcb-iO-eM8"/>
                             <constraint firstItem="qXi-HF-FBt" firstAttribute="leading" secondItem="FjN-I6-cuw" secondAttribute="leading" constant="13" id="HgC-S9-9fo"/>
+                            <constraint firstItem="hEz-0Y-dxH" firstAttribute="leading" secondItem="FjN-I6-cuw" secondAttribute="leading" constant="57" id="Hkr-mO-T0n"/>
                             <constraint firstItem="FjN-I6-cuw" firstAttribute="trailing" secondItem="PEI-wk-07m" secondAttribute="trailing" constant="5" id="ILz-tS-Z4H"/>
                             <constraint firstItem="PEI-wk-07m" firstAttribute="top" secondItem="Xlv-Nh-ybq" secondAttribute="bottom" constant="8" id="J0B-K8-KZl"/>
                             <constraint firstItem="Xlv-Nh-ybq" firstAttribute="top" secondItem="qXi-HF-FBt" secondAttribute="bottom" constant="8" id="KYY-ef-i1J"/>
@@ -159,6 +163,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Character's HQ" id="4E7-di-fev"/>
+                    <connections>
+                        <outlet property="comicDescriptionTextView" destination="PEI-wk-07m" id="VAb-dp-Lgs"/>
+                        <outlet property="comicImageView" destination="hEz-0Y-dxH" id="pUv-xi-hHU"/>
+                        <outlet property="comicNameLabel" destination="qXi-HF-FBt" id="Vdf-Hi-lQ9"/>
+                        <outlet property="comicPriceLabel" destination="Xlv-Nh-ybq" id="Opw-NF-ZM3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tNg-bZ-0C2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

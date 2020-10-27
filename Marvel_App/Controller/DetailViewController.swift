@@ -23,21 +23,28 @@ class DetailViewController: UIViewController {
         characterNameLabel.text = character?.characterName
         chatacterDescriptionLabel.text = character?.characterDescription
         button.setTitle("HQ de \(character?.characterName! ?? "HQ deste Personagem")", for: .normal)
+
         
     }
     
 
-    /*
-    // MARK: - Navigation
+    
+    // MARK: - DetailViewControllerDelegate
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == K.segueToComic {
+            let destinationVC = segue.destination as! ComicsViewController
+            if let id = character?.characterId {
+                destinationVC.id = id
+            }
+        }
     }
-    */
+    
 
     @IBAction func hqButtonTapped(_ sender: UIButton) {
     }
     
+    
+    
 }
+

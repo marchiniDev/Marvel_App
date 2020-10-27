@@ -16,8 +16,6 @@ class CharactersCollectionVC: UICollectionViewController {
     var characters: [CharacterInfo] = []
     var i: Int = 0
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

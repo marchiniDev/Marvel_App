@@ -16,12 +16,14 @@ struct DataStruct: Decodable {
 }
 
 struct Results: Decodable {
-    let name: String
-    let description: String
+    let name: String?
+    let description: String?
     let thumbnail: Thumbnail
+    let id: Int?
 }
 
 struct Thumbnail: Decodable {
-    let path: String
-    let `extension`: String
+    let path: String?
+    let `extension`: String?
 }
+
